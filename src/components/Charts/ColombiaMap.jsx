@@ -6,7 +6,13 @@ import ReactDOM from 'react-dom';
 import VegaLite from 'react-vega-lite';
 
 const spec = {
-  
+    "projection":{
+  		"type":"mercator",
+  		"scale":"774",
+  		"center0":"-72",
+  		"center1":"2",
+
+  	},
   "layer":[
   {
   "mark": {
@@ -14,9 +20,7 @@ const spec = {
         "fill": "lightgray",
         "stroke": "white"
       },
-      "projection": {
-        "type": "mercator"
-      },
+
   "data":{
   	"url": "https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json",
         "format": {
@@ -31,9 +35,10 @@ const spec = {
   "data":{
   	"url": "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/primera_vuelta_con_coordenadas.csv",
   	},
-  	"projection": {
-        "type": "albersUsa"
-      },
+  	"projection":{
+  		"type":"albers",
+  		"scale":"774"
+  	},
       "encoding": {
         "longitude": {
           "field": "longitud",
@@ -57,18 +62,6 @@ const spec = {
 class BarChart extends Component {
 
 	render() {
-		spec.encoding = {
-		"longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "size": {"value": 10},
-        "color": {"value": "steelblue"}
-	}
 		return(
 			<VegaLite spec={spec} />
 			)

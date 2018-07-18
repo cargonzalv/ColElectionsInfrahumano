@@ -156,10 +156,6 @@ class Dashboard extends Component {
   }, 500); // check every 500ms
   }
   
-      precisionRound(number, precision) {
-        var factor = Math.pow(10, precision);
-        return Math.round(number * factor) / factor;
-      }
 
       render() {
         let descripcionDepartamento = "Vista detallada de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
@@ -198,8 +194,8 @@ class Dashboard extends Component {
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               subtitle={candidato.partido}
-              description={""}
-            />
+              description={<div><PercentageVotes candidato = {candidato.csv} data = {data}/><ColombiaMap/></div>}
+              />
           </ItemGrid>)
         })
       }
