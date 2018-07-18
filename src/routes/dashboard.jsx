@@ -18,13 +18,13 @@ import {
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
+    path: "/",
     sidebarName: "Dashboard",
-    navbarName: "AReview Analytics",
+    navbarName: "ColElections",
     icon: Dashboard,
     component: DashboardPage
   },
-  {
+/*  {
     path: "/user/:id",
     sidebarName: "User Profile",
     navbarName: "Profile",
@@ -37,36 +37,9 @@ const dashboardRoutes = [
     navbarName: "Place",
     icon: ContentPaste,
     component: TableList
-  },
-  {
-    path: "/typography",
-    sidebarName: "Typography",
-    navbarName: "Typography",
-    icon: LibraryBooks,
-    component: Typography
-  },
-  {
-    path: "/icons",
-    sidebarName: "Icons",
-    navbarName: "Icons",
-    icon: BubbleChart,
-    component: Icons
-  },
-  {
-    path: "/maps",
-    sidebarName: "Maps",
-    navbarName: "Map",
-    icon: LocationOn,
-    component: Maps
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    navbarName: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage
-  },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  },*/
+  
+  { redirect: true, path: "/", to: "/", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;

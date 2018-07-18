@@ -10,6 +10,14 @@ import TasksCard from "./Cards/TasksCard.jsx";
 import PlaceCard from "./Cards/PlaceCard.jsx";
 
 // ##############################
+// // // Cards
+// #############################
+
+import BarChart from "./Charts/BarChart.jsx";
+import ColombiaMap from "./Charts/ColombiaMap.jsx";
+import PercentageVotes from "./Charts/PercentageVotes.jsx";
+
+// ##############################
 // // // CustomButtons
 // #############################
 
@@ -90,6 +98,13 @@ export {
   StatsCard,
   TasksCard,
   PlaceCard,
+
+  //Charts
+
+  BarChart,
+  ColombiaMap,
+  PercentageVotes,
+  
   // CustomButtons
   Button,
   IconButton,

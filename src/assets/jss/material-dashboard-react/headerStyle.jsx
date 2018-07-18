@@ -18,7 +18,6 @@ const headerStyle = theme => ({
     backgroundColor: "transparent",
     position:"absolute",
     boxShadow: "none",
-    paddingBottom:"10%",
     borderBottom: "0",
     marginBottom: "0",
     width: "100%",

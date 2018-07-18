@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import { Grid, InputLabel } from "material-ui";
-import firebase from "../../firebase";
 import ChartistGraph from "react-chartist";
 import {
   AccessTime,
@@ -105,11 +104,7 @@ class UserProfile extends Component {
 
 componentDidMount() {
     
-    const firestore = firebase.firestore();
-    const settings = {/* your settings... */ timestampsInSnapshots: true};
-    firestore.settings(settings);
-
-    this.getPlatosMasPedidos(firestore);
+   
 
 }
 

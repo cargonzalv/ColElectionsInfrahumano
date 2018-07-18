@@ -11,22 +11,16 @@ import { Header} from "components";
 import dashboardRoutes from "routes/dashboard.jsx";
 
 import appStyle from "assets/jss/material-dashboard-react/appStyle.jsx";
+import DashboardPage from "views/Dashboard/Dashboard.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 
-const switchRoutes = (
-  <Switch>
-    {dashboardRoutes.map((prop, key) => {
-      if (prop.redirect)
-        return <Redirect from={prop.path} to={prop.to} key={key} />;
-      return <Route path={prop.path} component={prop.component} key={key} />;
-    })}
-  </Switch>
-);
+
 
 class App extends React.Component {
   state = {
-    mobileOpen: false
+    mobileOpen: false,
+    mainPanel:null
   };
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -38,10 +32,14 @@ class App extends React.Component {
     if(navigator.platform.indexOf('Win') > -1){
       // eslint-disable-next-line
       const ps = new PerfectScrollbar(this.refs.mainPanel);
+      if(!this.state.mainPanel){
+        this.setState({mainPanel:this.refs.mainPanel,ps:ps});
+      }
     }
   }
   componentDidUpdate() {
     this.refs.mainPanel.scrollTop = 0;
+    this.state.ps.update()
   }
   render() {
     const { classes, ...rest } = this.props;
@@ -55,14 +53,9 @@ class App extends React.Component {
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
-          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
             <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
+              <div className={classes.container}><DashboardPage mainPanel = {this.state.mainPanel} ps={this.state.ps}/></div>
             </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
         </div>
       </div>
     );

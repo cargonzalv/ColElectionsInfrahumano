@@ -1,4 +1,4 @@
-import React from "react";
+  import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "@material-ui/icons";
 import {
@@ -32,8 +32,7 @@ function Header({ ...props }) {
             <NavLink className={classes.title}
                 to="/dashboard"
             >
-            <img className="rounded float-left" src="https://raw.githubusercontent.com/sneiderV/img/master/LogoAReview.png?token=AT1gow7GCend7P1EuOPixMOiLYxuqVuXks5bDy_WwA%3D%3D" alt="logo" height="40" width="40"/>
-              &nbsp; AReview 
+              &nbsp; ColElections 
             </NavLink>
             </h2>
         </div>

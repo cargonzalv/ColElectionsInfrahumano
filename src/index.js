@@ -13,7 +13,7 @@ ReactDOM.render(
   <Router history={hist}>
     <Switch>
       {indexRoutes.map((prop, key) => {
-        return <Route path={prop.path} component={prop.component} user={prop.user} rest={prop.rest} key={key} />;
+        return <Route path={prop.path} component={prop.component} panel={prop.mainPanel} rest={prop.rest} key={key} />;
       })}
     </Switch>
   </Router>,
