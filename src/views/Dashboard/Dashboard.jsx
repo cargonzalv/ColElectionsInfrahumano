@@ -107,11 +107,11 @@ class Dashboard extends Component {
 
   cambiarPrimeraVuelta(){
     if(this.state.vuelta != "primera")
-    this.setState({vuelta:"primera"})
+      this.setState({vuelta:"primera",candidate:{}})
   }
   cambiarSegundaVuelta(){
     if(this.state.vuelta != "segunda")
-    this.setState({vuelta:"segunda"})
+      this.setState({vuelta:"segunda",candidate:{}})
   }
   handleCandidateClick(candidato){
     this.setState({candidate:candidato})
@@ -151,13 +151,13 @@ class Dashboard extends Component {
         if(this.state.vuelta == "primera"){
           candidatosPrimera.map((candidato)=>{
             profiles.push(
-            <ItemGrid xs={2} sm={2} md={4} key={candidato.id} onClick={()=>this.handleCandidateClick(candidato)}>
+            <ItemGrid xs={12} sm={6} md={4} key={candidato.id} >
               <ProfileCard
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               subtitle={candidato.partido}
               description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap candidato = {candidato.csv}/></div>}
-              footer={<Button>Estadísticas</Button>}
+              footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
               >
               </ProfileCard>
             </ItemGrid>
@@ -167,12 +167,13 @@ class Dashboard extends Component {
         else{
         candidatosSegunda.map((candidato)=>{
           profiles.push(
-            <ItemGrid xs={6} sm={6} md={6} key={candidato.id} onClick={()=>this.handleCandidateClick(candidato)}>
+            <ItemGrid xs={6} sm={6} md={6} key={candidato.id}>
             <ProfileCard
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               subtitle={candidato.partido}
               description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap/></div>}
+              footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
               />
           </ItemGrid>)
         })
@@ -185,8 +186,8 @@ class Dashboard extends Component {
           Estos gráficos muestran estadísticas de las votaciones de primera y segunda vuelta de las elecciones
           de Colombia del 2018.
           </h3>
-          <ItemGrid xs={12} sm={12} md={4}/>
-          <ItemGrid xs={12} sm={12} md={4}>
+          <ItemGrid xs={4} sm={4} md={4}/>
+          <ItemGrid xs={4} sm={4} md={4}>
             <Button
               title="Seleccionar primera vuelta"
               color="info"
@@ -202,7 +203,7 @@ class Dashboard extends Component {
             Segunda Vuelta
             </Button>
           </ItemGrid>
-          <ItemGrid xs={12} sm={12} md={4}/>
+          <ItemGrid xs={4} sm={4} md={4}/>
 
         </Grid>
         <h3>

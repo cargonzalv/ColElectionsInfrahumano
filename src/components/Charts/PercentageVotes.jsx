@@ -40,9 +40,9 @@ class BarChart extends Component {
 	  			    "scale": {
   			      "rangeStep": 12
   			    },
-  			    "axis":{
-  			    	"title": this.props.candidato
-  			    }
+            "axis":{
+              title:""
+            }
   			  }
   			}
 		};
