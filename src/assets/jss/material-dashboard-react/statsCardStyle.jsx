@@ -65,7 +65,8 @@ const statsCardStyle = {
   },
   cardActions: {
     ...cardActions,
-    padding: "0!important"
+    padding: "0!important",
+    float:"left"
   },
   cardStats: {
     lineHeight: "22px",

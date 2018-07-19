@@ -15,9 +15,13 @@ import {
   Button,
   ProfileCard,
   ColombiaMap,
-  PercentageVotes
+  PercentageVotes,
+  BarChartTop3
 } from "components";
-
+import{
+  ThumbUp,
+  Update
+} from "@material-ui/icons";
 
 
 import {emailsSubscriptionChart} from "variables/charts";
@@ -120,10 +124,10 @@ class Dashboard extends Component {
   handleScrollToElement() {
   let checkExists = setInterval(()=> {
   const testNode = ReactDOM.findDOMNode(this.refs.candidate)
-   if (testNode) {
-      clearInterval(checkExists);
-      this.props.mainPanel.scrollTop = testNode.offsetTop - 100;
-      this.props.ps.update();
+  if (testNode) {
+    clearInterval(checkExists);
+    this.props.mainPanel.scrollTop = testNode.offsetTop - 100;
+    this.props.ps.update();
    }
   }, 200); // check every 100ms
   }
@@ -131,20 +135,59 @@ class Dashboard extends Component {
 
       render() {
         let descripcionDepartamento = "Vista detallada de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
-         const encodingDepartamento = {
-          "x": {"field": "departamento", "type": "ordinal"},
-          "y": {"field": this.state.candidate.csv, "type": "quantitative"}
+        let descripcionDepartamentoPorcentaje = "Vista detallada del porcentaje de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
+         
+        const encodingDepartamento = {
+          "x": {"field": "departamento", "type": "ordinal","sort": {"op": "sum", "field": this.state.candidate.csv,"order":"descending"}},
+          "y": {"aggregate":"sum", "field": this.state.candidate.csv, "type": "quantitative" }
         }
+        const encodingPorcentaje = {
+          "x": {"field": "departamento", "type": "ordinal","sort": {"op": "average", "field": "PercentOfTotal","order":"descending"}},
+          "y": {"aggregate":"average","field": "PercentOfTotal", "type": "quantitative", "axis":{
+            "title":"Porcentaje de Votos"
+            }
+          },
+          "color": {
+            "condition": {
+              "selection": "org",
+              "bin":true,
+              "field": "PercentOfTotal", "type": "quantitative"
+            },
+            "value": "grey"
+          }
+        }
+        const transform = [
+          {
+            "calculate": "datum['" + this.state.candidate.csv + "']/datum.votantes * 100",
+            "as": "PercentOfTotal"
+          }
+        ]
 
+        const selection = {
+          "org": {
+              "type": "single",
+              "fields": ["departamento"],
+              "bind": {"input": "select","options": ["Amazonas","Antioquia","Arauca","Atlantico","Bogotá D.C.","Bolivar","Boyaca",
+              "Caldas","Caqueta","Casanare","Cauca","Cesar","Choco","Cordoba","Cundinamarca","Guainia","Guaiviare","Huila","La Guajira",
+              "Magdalena","Meta","Nariño","Norde de San","Putumayo","Quindio","Risaralda","San Andres","Santander","Sucre","Tolima","Valle",
+              "Vaupes","Vichada"]}
+            }
+          }
 
         let data = primeraVuelta;
         let dataTotal = {
           url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_primera_vuelta.csv"
         }
+        let dataAgrupada = {
+          url : "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/primera_vuelta_agrupada.csv"
+        }
         if(this.state.vuelta == "segunda"){
           data = segundaVuelta;
           dataTotal = {
             url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_segunda_vuelta.csv"
+          }
+          dataAgrupada = {
+            url :"https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/segunda_vuelta_agrupada.csv"
           }
         }
         let profiles = [];
@@ -221,13 +264,39 @@ class Dashboard extends Component {
       {this.state.candidate.csv &&
       <div ref="candidate">
       <Grid container>
-          <ItemGrid xs={12} sm={10} md={10}>
+          <ItemGrid xs={10} sm={10} md={9}>
           <RegularCard
               headerColor="green"
               cardTitle="Votaciones por departamento"
               cardSubtitle={descripcionDepartamento}
               content={
               <BarChart data= {data} encoding = {encodingDepartamento}
+              />
+          }
+          />
+          </ItemGrid>
+          <ItemGrid xs={2} sm={2} md={3}>
+            <Grid>
+              <StatsCard
+                icon={ThumbUp}
+                iconColor="blue"
+                title="Departamentos con mayor cantidad de votos"
+                description={this.state.numPlacesTotal}
+                statIcon={Update}
+                statText="real time"
+              />
+            </Grid>
+            
+          </ItemGrid>
+        </Grid>
+        <Grid container>
+          <ItemGrid xs={10} sm={10} md={9}>
+          <RegularCard
+              headerColor="blue"
+              cardTitle="Porcentaje de votación por departamento"
+              cardSubtitle={descripcionDepartamentoPorcentaje}
+              content={
+              <BarChart data= {dataAgrupada} encoding = {encodingPorcentaje} selection = {selection} transform = {transform}
               />
           }
           />

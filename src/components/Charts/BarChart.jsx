@@ -13,6 +13,8 @@ class BarChart extends Component {
 
 	render() {
 		spec.encoding = this.props.encoding;
+		spec.selection = this.props.selection;
+		spec.transform = this.props.transform;
 		return(
 			<VegaLite spec={spec} data={this.props.data} />
 			)
