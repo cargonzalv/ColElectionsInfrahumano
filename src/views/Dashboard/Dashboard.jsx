@@ -20,6 +20,7 @@ import {
 } from "components";
 import{
   ThumbUp,
+  ThumbDown,
   Update
 } from "@material-ui/icons";
 
@@ -263,7 +264,7 @@ class Dashboard extends Component {
 
       {this.state.candidate.csv &&
       <div ref="candidate">
-      <Grid container>
+        <Grid container>
           <ItemGrid xs={10} sm={10} md={9}>
           <RegularCard
               headerColor="green"
@@ -285,6 +286,14 @@ class Dashboard extends Component {
                 statIcon={Update}
                 statText="real time"
               />
+              <StatsCard
+                icon={ThumbDown}
+                iconColor="red"
+                title="Departamentos con menor cantidad de votos"
+                description={this.state.numPlacesTotal}
+                statIcon={Update}
+                statText="real time"
+              />
             </Grid>
             
           </ItemGrid>
@@ -298,9 +307,30 @@ class Dashboard extends Component {
               content={
               <BarChart data= {dataAgrupada} encoding = {encodingPorcentaje} selection = {selection} transform = {transform}
               />
-          }
+              }
           />
           </ItemGrid>
+          <ItemGrid xs={2} sm={2} md={3}>
+          <Grid>
+              <StatsCard
+                icon={ThumbUp}
+                iconColor="blue"
+                title="Departamentos con mejor porcentaje de votos"
+                description={this.state.numPlacesTotal}
+                statIcon={Update}
+                statText="real time"
+              />
+              <StatsCard
+                icon={ThumbDown}
+                iconColor="red"
+                title="Departamentos con peor porcentaje de votos"
+                description={this.state.numPlacesTotal}
+                statIcon={Update}
+                statText="real time"
+              />
+            </Grid>
+            </ItemGrid>
+            
         </Grid>
 
         </div>
