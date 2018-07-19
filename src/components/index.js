@@ -63,11 +63,6 @@ import Sidebar from "./Sidebar/Sidebar.jsx";
 import Snackbar from "./Snackbar/Snackbar.jsx";
 import SnackbarContent from "./Snackbar/SnackbarContent.jsx";
 
-// ##############################
-// // // Table
-// #############################
-
-import Table from "./Table/Table.jsx";
 
 // ##############################
 // // // Tasks
@@ -123,8 +118,6 @@ export {
   //Snackbar
   Snackbar,
   SnackbarContent,
-  // Table
-  Table,
   // Tasks
   Tasks,
   // Typography

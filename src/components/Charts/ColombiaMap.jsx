@@ -1,16 +1,12 @@
 import React, {Component} from "react";
-import {createClassFromLiteSpec} from 'react-vega-lite';
 
 
-import ReactDOM from 'react-dom';
 import VegaLite from 'react-vega-lite';
 
 const spec = {
     "projection":{
-  		"type":"mercator",
-  		"scale":"774",
-  		"center0":"-72",
-  		"center1":"2",
+  		"scale":"10000",
+  		
 
   	},
   "layer":[
@@ -37,7 +33,9 @@ const spec = {
   	},
   	"projection":{
   		"type":"albers",
-  		"scale":"774"
+  		"scale":"774",
+      "center0":"-72",
+      "center1":"2",
   	},
       "encoding": {
         "longitude": {
@@ -48,7 +46,7 @@ const spec = {
           "field": "latitud",
           "type": "quantitative"
         },
-        "size": {"value": 100},
+        "size": {"value": 10},
         "color": {"value": "red"}
       }
   }

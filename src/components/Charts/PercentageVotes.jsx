@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import {createClassFromLiteSpec} from 'react-vega-lite';
 
 
-import ReactDOM from 'react-dom';
 import VegaLite from 'react-vega-lite';
 
 
@@ -10,35 +8,22 @@ import VegaLite from 'react-vega-lite';
 class BarChart extends Component {
 
 	render() {
+		console.log(this.props.candidato)
+		let calc = "round(datum['"+this.props.candidato+"']/datum.total * 100)";
 		const spec = {
-			"data": {
-    "values": [
-      {"total votantes": 10,"gustavo petro": 8},
-      {"total votantes": 20,"gustavo petro": 2},
-      {"total votantes": 30,"gustavo petro": 4},
-      {"total votantes": 40,"gustavo petro": 8},
-      {"total votantes": 50,"gustavo petro": 2}
-    ]
-  },
-  			"description": "A simple bar chart with embedded data.",
+			"description": "A simple bar chart with embedded data.",
   			"mark": "bar",
   			"transform": [{
   			  "window": [{
-  			      "op": "sum",
-  			      "field": "gustavo petro",
+  			      "op": "count",
+  			      "field": this.props.candidato,
   			      "as": "TotalVotosCandidato"
-  			  },
-  			  {
-  			      "op": "sum",
-  			      "field": "total_votantes",
-  			      "as": "TotalVotos"
   			  },
   			  
   			  ],
-  			  "frame": [null, null]
   			},
   			{
-  			  "calculate": "datum.TotalVotosCandidato/datum.TotalVotos * 100",
+  			  "calculate": calc,
   			  "as": "PercentOfTotal"
   			}],
   			"encoding": {
@@ -50,7 +35,7 @@ class BarChart extends Component {
   			    }
   			  },
   			  "y": {
-  			  	"field":"departamento",
+  			  	"field":"PercentOfTotal",
   			  	 "type": "nominal",
 	  			    "scale": {
   			      "rangeStep": 12
@@ -63,7 +48,7 @@ class BarChart extends Component {
 		};
 
 		return(
-			<VegaLite spec={spec}/>
+			<VegaLite spec={spec} data={this.props.data}/>
 			)
 	}
 

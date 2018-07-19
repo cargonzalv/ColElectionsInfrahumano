@@ -1,40 +1,13 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import PerfectScrollbar from "perfect-scrollbar";
 
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
-import moment from "moment";
-import {
-  AccessTime,
-  Restaurant,
-  ContentCopy,
-  Store,
-  InfoOutline,
-  Warning,
-  DateRange,
-  LocalOffer,
-  Update,
-  SystemUpdate,
-  ArrowUpward,
-  Map,
-  Accessibility,
-  Favorite,
-  NoteAdd,
-  Style,
-  RateReview,
-  RestaurantMenu
-} from "@material-ui/icons";
-
-import Maps from "../Maps/Maps"
 import { withStyles, Grid } from "material-ui";
 
 import {
   ChartCard,
   StatsCard,
   RegularCard,
-  Table,
   ItemGrid,
   AutoSuggest,
   BarChart,
@@ -148,12 +121,11 @@ class Dashboard extends Component {
   let checkExists = setInterval(()=> {
   const testNode = ReactDOM.findDOMNode(this.refs.candidate)
    if (testNode) {
-      console.log("Exists!");
       clearInterval(checkExists);
       this.props.mainPanel.scrollTop = testNode.offsetTop - 100;
       this.props.ps.update();
    }
-  }, 500); // check every 500ms
+  }, 200); // check every 100ms
   }
   
 
@@ -161,27 +133,33 @@ class Dashboard extends Component {
         let descripcionDepartamento = "Vista detallada de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
          const encodingDepartamento = {
           "x": {"field": "departamento", "type": "ordinal"},
-          "y": {"field": this.state.candidate.csv, "type": "quantitative"}
+          "y": {"field": this.state.candidate.nombre, "type": "ordinal"}
         }
 
 
-
         let data = primeraVuelta;
+        let dataTotal = {
+          url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_primera_vuelta.csv"
+        }
         if(this.state.vuelta == "segunda"){
           data = segundaVuelta;
+          dataTotal = {
+            url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_segunda_vuelta.csv"
+          }
         }
         let profiles = [];
         if(this.state.vuelta == "primera"){
           candidatosPrimera.map((candidato)=>{
-            console.log(baseUrl + this.separarNombres(candidato.id) + ".jpg")
             profiles.push(
             <ItemGrid xs={2} sm={2} md={4} key={candidato.id} onClick={()=>this.handleCandidateClick(candidato)}>
               <ProfileCard
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               subtitle={candidato.partido}
-              description={<div><PercentageVotes candidato = {candidato.csv} data = {data}/><ColombiaMap/></div>}
-              />
+              description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap candidato = {candidato.csv}/></div>}
+              footer={<Button>Estadísticas</Button>}
+              >
+              </ProfileCard>
             </ItemGrid>
             )
           })
@@ -194,7 +172,7 @@ class Dashboard extends Component {
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               subtitle={candidato.partido}
-              description={<div><PercentageVotes candidato = {candidato.csv} data = {data}/><ColombiaMap/></div>}
+              description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap/></div>}
               />
           </ItemGrid>)
         })

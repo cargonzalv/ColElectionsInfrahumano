@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import {createClassFromLiteSpec} from 'react-vega-lite';
 
 
-import ReactDOM from 'react-dom';
 import VegaLite from 'react-vega-lite';
 
 const spec = {

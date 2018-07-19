@@ -35,7 +35,7 @@ function ProfileCard({ ...props }) {
           </Typography>
         ) : null}
         {description !== undefined ? (
-          <Typography component="p" className={classes.cardDescription}>
+          <Typography component="div" className={classes.cardDescription}>
             {description}
           </Typography>
         ) : null}

@@ -4,7 +4,6 @@ import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import {MenuItem, Paper, TextField, withStyles} from 'material-ui';
-import { CustomInput, IconButton as SearchButton } from "components";
 import { Search } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
 
