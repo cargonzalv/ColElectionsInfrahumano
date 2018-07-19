@@ -2,6 +2,9 @@
 
 Este proyecto fue basado en el template básico de [Create React App](https://github.com/facebookincubator/create-react-app) y el [dashboard de material design de Tim](https://www.creative-tim.com/product/material-dashboard-react#)
 
+* Los datos se tomaron del aporte de [infrahumano](https://github.com/infrahumano/elecciones2018).
+
+
 ## Tecnologías
 
 - React
