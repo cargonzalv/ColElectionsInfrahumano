@@ -133,7 +133,7 @@ class Dashboard extends Component {
         let descripcionDepartamento = "Vista detallada de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
          const encodingDepartamento = {
           "x": {"field": "departamento", "type": "ordinal"},
-          "y": {"field": this.state.candidate.nombre, "type": "ordinal"}
+          "y": {"field": this.state.candidate.csv, "type": "quantitative"}
         }
 
 
