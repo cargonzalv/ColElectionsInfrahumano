@@ -6,8 +6,6 @@ import VegaLite from 'react-vega-lite';
 const spec = {
     "projection":{
   		"scale":"10000",
-  		
-
   	},
   "layer":[
   {
