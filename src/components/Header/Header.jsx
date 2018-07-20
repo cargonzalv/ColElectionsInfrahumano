@@ -1,12 +1,9 @@
   import React from "react";
 import PropTypes from "prop-types";
-import { Menu } from "@material-ui/icons";
 import {
   withStyles,
   AppBar,
   Toolbar,
-  IconButton,
-  Hidden
 } from "material-ui";
 import { NavLink } from "react-router-dom";
 

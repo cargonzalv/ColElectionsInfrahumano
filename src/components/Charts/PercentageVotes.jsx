@@ -8,7 +8,6 @@ import VegaLite from 'react-vega-lite';
 class BarChart extends Component {
 
 	render() {
-		console.log(this.props.candidato)
 		let calc = "round(datum['"+this.props.candidato+"']/datum.total * 100)";
 		const spec = {
 			"description": "A simple bar chart with embedded data.",

@@ -5,18 +5,14 @@ import PropTypes from "prop-types";
 import { withStyles, Grid } from "material-ui";
 
 import {
-  ChartCard,
   StatsCard,
   RegularCard,
   ItemGrid,
-  AutoSuggest,
   BarChart,
-  IconButton,
   Button,
   ProfileCard,
   ColombiaMap,
   PercentageVotes,
-  BarChartTop3
 } from "components";
 import{
   ThumbUp,
@@ -25,7 +21,6 @@ import{
 } from "@material-ui/icons";
 
 
-import {emailsSubscriptionChart} from "variables/charts";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/dashboardStyle";
 
@@ -111,11 +106,11 @@ class Dashboard extends Component {
 
 
   cambiarPrimeraVuelta(){
-    if(this.state.vuelta != "primera")
+    if(this.state.vuelta !== "primera")
       this.setState({vuelta:"primera",candidate:{}})
   }
   cambiarSegundaVuelta(){
-    if(this.state.vuelta != "segunda")
+    if(this.state.vuelta !== "segunda")
       this.setState({vuelta:"segunda",candidate:{}})
   }
   handleCandidateClick(candidato){
@@ -182,7 +177,7 @@ class Dashboard extends Component {
         let dataAgrupada = {
           url : "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/primera_vuelta_agrupada.csv"
         }
-        if(this.state.vuelta == "segunda"){
+        if(this.state.vuelta === "segunda"){
           data = segundaVuelta;
           dataTotal = {
             url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_segunda_vuelta.csv"
@@ -192,20 +187,22 @@ class Dashboard extends Component {
           }
         }
         let profiles = [];
-        if(this.state.vuelta == "primera"){
+        if(this.state.vuelta === "primera"){
           candidatosPrimera.map((candidato)=>{
             profiles.push(
             <ItemGrid xs={12} sm={6} md={4} key={candidato.id} >
               <ProfileCard
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
+              candidato = {candidato}
               subtitle={candidato.partido}
-              description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap candidato = {candidato.csv}/></div>}
+              description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/></div>}
               footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
               >
               </ProfileCard>
             </ItemGrid>
             )
+            return candidato
           })
         }
         else{
@@ -220,6 +217,7 @@ class Dashboard extends Component {
               footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
               />
           </ItemGrid>)
+          return candidato;
         })
       }
           

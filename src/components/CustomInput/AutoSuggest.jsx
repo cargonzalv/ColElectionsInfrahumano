@@ -36,9 +36,6 @@ function renderSectionTitle(section) {
     <strong>{section.title}</strong>
   );
 }
-function handleClick(){
-
-}
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.name, query);

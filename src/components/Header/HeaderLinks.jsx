@@ -3,7 +3,6 @@ import {
   withStyles,
 } from "material-ui";
 
-import { CustomInput as SearchButton } from "components";
 
 import headerLinksStyle from "assets/jss/material-dashboard-react/headerLinksStyle";
 
@@ -20,7 +19,6 @@ class HeaderLinks extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
     return (
       <div className = {classes.searchDiv}>
         

@@ -6,13 +6,15 @@ import {
   CardContent,
   CardActions,
   Typography
+
 } from "material-ui";
+import {ColombiaMap} from "components";
 import PropTypes from "prop-types";
 
 import profileCardStyle from "assets/jss/material-dashboard-react/profileCardStyle";
 
 function ProfileCard({ ...props }) {
-  const { classes, subtitle, title, description, footer, avatar } = props;
+  const { classes, subtitle, title, description, footer, avatar,candidato } = props;
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -40,6 +42,7 @@ function ProfileCard({ ...props }) {
           </Typography>
         ) : null}
       </CardContent>
+      <ColombiaMap candidato = {candidato.csv}/>
       <CardActions className={classes.textAlign + " " + classes.cardActions}>
         {footer}
       </CardActions>

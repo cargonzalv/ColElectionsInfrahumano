@@ -3,10 +3,8 @@
 // #############################
 
 import {
-  primaryColor,
   dangerColor,
   successColor,
-  defaultFont
 } from "assets/jss/material-dashboard-react.jsx";
 
 const customInputStyle = {
