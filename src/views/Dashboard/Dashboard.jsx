@@ -11,8 +11,8 @@ import {
   BarChart,
   Button,
   ProfileCard,
-  ColombiaMap,
   PercentageVotes,
+  ColombiaMap
 } from "components";
 import{
   ThumbUp,
@@ -132,7 +132,7 @@ class Dashboard extends Component {
       render() {
         let descripcionDepartamento = "Vista detallada de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
         let descripcionDepartamentoPorcentaje = "Vista detallada del porcentaje de las votaciones que recibió " + this.state.candidate.nombre + " por departamento."
-         
+        let descripcionMapa = "Vista detallada de la distribución de los votos por municipio para el candidato " + this.state.candidate.nombre + "."
         const encodingDepartamento = {
           "x": {"field": "departamento", "type": "ordinal","sort": {"op": "sum", "field": this.state.candidate.csv,"order":"descending"}},
           "y": {"aggregate":"sum", "field": this.state.candidate.csv, "type": "quantitative" }
@@ -172,29 +172,29 @@ class Dashboard extends Component {
 
         let data = primeraVuelta;
         let dataTotal = {
-          url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_primera_vuelta.csv"
+          url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_" + this.state.vuelta+"_vuelta.csv"
         }
         let dataAgrupada = {
-          url : "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/primera_vuelta_agrupada.csv"
+          url : "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/"+this.state.vuelta+"_vuelta_agrupada.csv"
         }
         if(this.state.vuelta === "segunda"){
-          data = segundaVuelta;
-          dataTotal = {
-            url:"https://raw.githubusercontent.com/cegonzalv/ColElectionsInfrahumano/master/totales_segunda_vuelta.csv"
-          }
-          dataAgrupada = {
-            url :"https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/segunda_vuelta_agrupada.csv"
-          }
+          data = segundaVuelta; 
         }
         let profiles = [];
-        if(this.state.vuelta === "primera"){
-          candidatosPrimera.map((candidato)=>{
+        let candidatos = candidatosPrimera;
+        let size = [12,6,4];
+        if(this.state.vuelta === "segunda"){
+          candidatos = candidatosSegunda;
+          size = [6,6,6];
+        }
+          candidatos.map((candidato)=>{
             profiles.push(
-            <ItemGrid xs={12} sm={6} md={4} key={candidato.id} >
+            <ItemGrid xs={size[0]} sm={size[1]} md={size[2]} key={candidato.id} >
               <ProfileCard
               avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
               title={candidato.nombre}
               candidato = {candidato}
+              vuelta = {this.state.vuelta}
               subtitle={candidato.partido}
               description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/></div>}
               footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
@@ -203,24 +203,7 @@ class Dashboard extends Component {
             </ItemGrid>
             )
             return candidato
-          })
-        }
-        else{
-        candidatosSegunda.map((candidato)=>{
-          profiles.push(
-            <ItemGrid xs={6} sm={6} md={6} key={candidato.id}>
-            <ProfileCard
-              avatar={baseUrl + this.separarNombres(candidato.id) + ".jpg"}
-              title={candidato.nombre}
-              subtitle={candidato.partido}
-              description={<div><PercentageVotes candidato = {candidato.csv} data = {dataTotal}/><ColombiaMap/></div>}
-              footer={<Button onClick={()=>this.handleCandidateClick(candidato)}>Estadísticas</Button>}
-              />
-          </ItemGrid>)
-          return candidato;
         })
-      }
-          
     return (
       <div>
       <Grid container>
@@ -269,8 +252,7 @@ class Dashboard extends Component {
               cardTitle="Votaciones por departamento"
               cardSubtitle={descripcionDepartamento}
               content={
-              <BarChart data= {data} encoding = {encodingDepartamento}
-              />
+              <BarChart data= {data} encoding = {encodingDepartamento}/>
           }
           />
           </ItemGrid>
@@ -328,9 +310,19 @@ class Dashboard extends Component {
               />
             </Grid>
             </ItemGrid>
-            
         </Grid>
-
+        <Grid container>
+          <ItemGrid xs={10} sm={10} md={9}>
+            <RegularCard
+              headerColor="red"
+              cardTitle="Votos por municipio"
+              cardSubtitle={descripcionMapa}
+              content={
+                <ColombiaMap candidato = {this.state.candidate.csv} vuelta={this.state.vuelta}/>
+              }
+          />
+          </ItemGrid>
+        </Grid>
         </div>
       }
       </div>

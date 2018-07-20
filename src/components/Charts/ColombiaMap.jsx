@@ -3,13 +3,23 @@ import React, {Component} from "react";
 import VegaLite from 'react-vega-lite';
 /*https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/Colombia.topo.json
 */const spec = {
-  "width":300,
-  "height":300,
+  "width":600,
+  "height":500,
   "config": {
     "view": {
       "stroke": "transparent"
     }
   },
+  "signals" : [
+    {
+      "name": "zoom",
+      "init": 1.0,
+      "verbose": true,
+      "streams": [
+        {"type": "wheel", "expr": "pow(1.001, event.deltaY*pow(16, event.deltaMode))"}
+      ]
+    }
+  ],
   "layer": [
     {
       "data": {
@@ -19,6 +29,7 @@ import VegaLite from 'react-vega-lite';
           "feature": "Colombia"
         }
       },
+
       "mark": {
         "type": "geoshape",
         "stroke": "white",
@@ -31,12 +42,6 @@ import VegaLite from 'react-vega-lite';
       }
     },
     {
-      "data": {
-        "url": "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/primera_vuelta_coords.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
       "mark": "circle",
       "encoding": {
         "longitude": {
@@ -46,9 +51,6 @@ import VegaLite from 'react-vega-lite';
         "latitude": {
           "field": "latitud",
           "type": "quantitative"
-        },
-        "size": {
-          "value":5
         },
         "opacity": {
           "value": 0.6
@@ -98,7 +100,18 @@ import VegaLite from 'react-vega-lite';
 class BarChart extends Component {
 
 	render() {
+    spec.layer[1].encoding.size = {
+          "field":this.props.candidato,
+          "type": "quantitative"
+      }
+    spec.layer[1].data = {
+      "url": "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/" +this.props.vuelta + "_vuelta_coord"+ (this.props.vuelta === "segunda"? "enada" : "") +"s.csv",
+        "format": {
+          "type": "csv"
+        }
+      }
 		return(
+      
 			<VegaLite spec={spec} />
 			)
 	}
