@@ -8,13 +8,13 @@ import {
   Typography
 
 } from "material-ui";
-import {ColombiaMap} from "components";
+
 import PropTypes from "prop-types";
 
 import profileCardStyle from "assets/jss/material-dashboard-react/profileCardStyle";
 
 function ProfileCard({ ...props }) {
-  const { classes, subtitle, title, description, footer, avatar,candidato,vuelta } = props;
+  const { classes, subtitle, title, description, footer, avatar } = props;
   return (
     <Card className={classes.card}>
       <CardHeader

@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import VegaLite from 'react-vega-lite';
 /*https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/Colombia.topo.json
 */const spec = {
-  "width":600,
+  "width":500,
   "height":500,
   "config": {
     "view": {
@@ -85,7 +85,7 @@ import VegaLite from 'react-vega-lite';
           "type": "nominal"
         },
         "size": {
-          "value": 4
+          "value": 7
         },
         "opacity": {
           "value": 0.6

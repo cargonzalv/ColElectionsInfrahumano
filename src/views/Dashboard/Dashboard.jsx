@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { withStyles, Grid } from "material-ui";
 
 import {
-  StatsCard,
   RegularCard,
   ItemGrid,
   BarChart,
@@ -14,11 +13,6 @@ import {
   PercentageVotes,
   ColombiaMap
 } from "components";
-import{
-  ThumbUp,
-  ThumbDown,
-  Update
-} from "@material-ui/icons";
 
 
 
@@ -257,7 +251,7 @@ class Dashboard extends Component {
           />
           </ItemGrid>
           <ItemGrid xs={2} sm={2} md={3}>
-            <Grid>
+            {/*<Grid>
               <StatsCard
                 icon={ThumbUp}
                 iconColor="blue"
@@ -274,7 +268,7 @@ class Dashboard extends Component {
                 statIcon={Update}
                 statText="real time"
               />
-            </Grid>
+            </Grid>*/}
             
           </ItemGrid>
         </Grid>
@@ -291,7 +285,7 @@ class Dashboard extends Component {
           />
           </ItemGrid>
           <ItemGrid xs={2} sm={2} md={3}>
-          <Grid>
+          {/*<Grid>
               <StatsCard
                 icon={ThumbUp}
                 iconColor="blue"
@@ -308,11 +302,11 @@ class Dashboard extends Component {
                 statIcon={Update}
                 statText="real time"
               />
-            </Grid>
+            </Grid>*/}
             </ItemGrid>
         </Grid>
         <Grid container>
-          <ItemGrid xs={10} sm={10} md={9}>
+          <ItemGrid xs={12} sm={12} md={12}>
             <RegularCard
               headerColor="red"
               cardTitle="Votos por municipio"
