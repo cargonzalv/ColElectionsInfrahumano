@@ -18,6 +18,4 @@ Este proyecto fue basado en el template básico de [Create React App](https://gi
 - npm start
 - done
 
-Hasta ahora no he logrado que funcione el mapa correctamente.
-
 [Live Demo](http://colelections.herokuapp.com/)
