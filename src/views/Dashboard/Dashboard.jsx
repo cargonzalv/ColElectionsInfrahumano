@@ -154,6 +154,8 @@ class Dashboard extends Component {
           }
         ]
 
+       
+
         const selection = {
           "org": {
               "type": "single",
@@ -164,6 +166,21 @@ class Dashboard extends Component {
               "Vaupes","Vichada"]}
             }
           }
+
+         const transformMapa = [
+          {
+            "calculate": "datum['" + this.state.candidate.csv + "']/datum.votantes * 100",
+            "as": "% de votos obtenidos"
+          }
+        ]
+        const sizeMapaPorcentaje = {
+          "field":"% de votos obtenidos",
+          "type": "quantitative"
+      }
+      const sizeMapaConteo = {
+        "field":this.state.candidate.csv,
+        "type": "quantitative"
+      }
 
         let data = primeraVuelta;
         let dataTotal = {
@@ -313,7 +330,17 @@ class Dashboard extends Component {
               cardTitle="Votos por municipio"
               cardSubtitle={descripcionMapa}
               content={
-                <ColombiaMap candidato = {this.state.candidate.csv} vuelta={this.state.vuelta}/>
+                <Grid container>
+                  <ItemGrid xs={6} sm={6} md={6}>
+                    <ColombiaMap candidato = {this.state.candidate.csv} vuelta={this.state.vuelta} 
+                    size ={sizeMapaConteo}/>
+                  </ItemGrid>
+                  <ItemGrid xs={6} sm={6} md={6}>
+                    <ColombiaMap 
+                    candidato = {this.state.candidate.csv} vuelta={this.state.vuelta} 
+                    size ={sizeMapaPorcentaje} transform = {transformMapa}/>
+                  </ItemGrid>
+                </Grid>
               }
           />
           </ItemGrid>

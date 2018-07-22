@@ -3,8 +3,8 @@ import React, {Component} from "react";
 import VegaLite from 'react-vega-lite';
 /*https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/Colombia.topo.json
 */const spec = {
-  "width":500,
-  "height":500,
+  "width":400,
+  "height":400,
   "config": {
     "view": {
       "stroke": "transparent"
@@ -100,10 +100,9 @@ import VegaLite from 'react-vega-lite';
 class BarChart extends Component {
 
 	render() {
-    spec.layer[1].encoding.size = {
-          "field":this.props.candidato,
-          "type": "quantitative"
-      }
+    spec.layer[1].transform = this.props.transform;
+    spec.layer[1].encoding.size = this.props.size;
+    
     spec.layer[1].data = {
       "url": "https://raw.githubusercontent.com/cegonzalv/cegonzalv.github.io/master/" +this.props.vuelta + "_vuelta_coord"+ (this.props.vuelta === "segunda"? "enada" : "") +"s.csv",
         "format": {
