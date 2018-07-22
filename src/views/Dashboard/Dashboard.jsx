@@ -108,16 +108,17 @@ class Dashboard extends Component {
       this.setState({vuelta:"segunda",candidate:{}})
   }
   handleCandidateClick(candidato){
+        this.handleScrollToElement();
+
     this.setState({candidate:candidato})
-    this.handleScrollToElement();
   }
   handleScrollToElement() {
   let checkExists = setInterval(()=> {
   const testNode = ReactDOM.findDOMNode(this.refs.candidate)
   if (testNode) {
     clearInterval(checkExists);
-    this.props.mainPanel.scrollTop = testNode.offsetTop - 100;
-    this.props.ps.update();
+
+    testNode.scrollIntoView({behavior: 'smooth',block:"start"});
    }
   }, 200); // check every 100ms
   }

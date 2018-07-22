@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-// creates a beautiful scrollbar
-import PerfectScrollbar from "perfect-scrollbar";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
+
 import { withStyles } from "material-ui";
 
 import { Header} from "components";
@@ -24,17 +22,8 @@ class App extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
-    return this.props.location.pathname !== "/maps";
-  }
   componentDidMount() {
-    if(navigator.platform.indexOf('Win') > -1){
-      // eslint-disable-next-line
-      const ps = new PerfectScrollbar(this.refs.mainPanel);
-      if(!this.state.mainPanel){
-        this.setState({mainPanel:this.refs.mainPanel,ps:ps});
-      }
-    }
+
   }
   componentDidUpdate() {
     this.refs.mainPanel.scrollTop = 0;
@@ -53,7 +42,7 @@ class App extends React.Component {
             {...rest}
           />
             <div className={classes.content}>
-              <div className={classes.container}><DashboardPage mainPanel = {this.state.mainPanel} ps={this.state.ps}/></div>
+              <div className={classes.container}><DashboardPage/></div>
             </div>
         </div>
       </div>
